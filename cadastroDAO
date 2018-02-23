@@ -2,7 +2,7 @@ public class FornecedoresDAO {
 	public void salvar(Fornecedores f) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO fornecedores ");
-		sql.append("(descricao) ");
+		sql.append("(nome) ");
 		sql.append("VALUES (?)");
 
 		Connection conexao = ConexaoBD.conectar();
@@ -29,22 +29,22 @@ public class FornecedoresDAO {
 	public void editar(Fornecedores f) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE fornecedores ");
-		sql.append("SET descricao = ? ");
+		sql.append("SET nome = ? ");
 		sql.append("WHERE codigo = ? ");
 
 		Connection conexao = ConexaoBD.conectar();
 
 		PreparedStatement comando = conexao.prepareStatement(sql.toString());
-		comando.setString(1, f.getDescricao());
+		comando.setString(1, f.getNome());
 		comando.setLong(2, f.getCodigo());
 		comando.executeUpdate();
 
 	}
   public ArrayList<Fornecedores> listar() throws SQLException {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT codigo, descricao ");
+		sql.append("SELECT codigo, nome ");
 		sql.append("FROM fornecedores ");
-		sql.append("ORDER BY descricao ASC");
+		sql.append("ORDER BY nome ASC");
 
 		Connection conexao = ConexaoBD.conectar();
 
@@ -56,7 +56,7 @@ public class FornecedoresDAO {
 		while (resultado.next()) {
 			Fornecedores f = new Fornecedores();
 			f.setCodigo(resultado.getLong("codigo"));
-			f.setDescricao(resultado.getString("descricao"));
+			f.setDescricao(resultado.getString("nome"));
 
 			lista.add(f);
 		}
